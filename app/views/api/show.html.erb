@@ -1,0 +1,63 @@
+<%= form_tag("/search", method: "get") do %>
+  <%= text_field_tag(:q, '', autofocus: true) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+	<ul class="results-list"></ul>
+
+<script>
+	var trackPlaying;
+
+	$('form').on('submit', function(event){
+		event.preventDefault();
+		$('.results-list').empty();
+
+		var searchInput = $("#q");
+		var query = searchInput.val();
+		searchInput.val("");
+		
+		SC.get('/tracks', { q: query }, function(tracks) {
+		  _.each(tracks, function(track, i){
+		  	console.log(track);
+		  	var id = track["id"]
+		  	var title = track["title"];
+		  	var artwork = track["artwork_url"];
+		  	var user = track["user"];
+
+		  	var result = $('<li></li>').attr('id', 'result-' + (i + 1));
+		  	var trackContainer = $('<div></div>').attr('id', id).addClass('trackContainer').appendTo(result);
+
+		  	trackContainer.append($('<button type="button">Play</button>').addClass('play'));
+		  	trackContainer.append($('<p></p>').html(artwork));
+		  	trackContainer.append($('<p></p>').html(title));
+		  	trackContainer.append($('<p></p>').html(user["username"]).attr('id', user["id"]));
+
+		  	$('.results-list').append(result);
+		  });
+
+		  $('.play').on('click', function(){
+		  	var trackContainer = $(this).closest('.trackContainer');
+		  	var id = trackContainer.attr('id');
+		  	
+		  	SC.stream("/tracks/" + id, function(sound){
+		  		if (typeof trackPlaying != 'undefined') { trackPlaying.pause() };
+		  		trackPlaying = sound;
+		  	  sound.play();
+		  	});
+
+		  });
+
+		});
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		
+
+		
+
+
+	});
+</script>
