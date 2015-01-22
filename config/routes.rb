@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
 
+  get 'profiles/show'
+
   devise_for :users, controllers: {registrations: 'users/registrations'}
   
-  resources :users, only: [:index]
+  resources :users, only: [:index] do
+    resource :profile, only: [:show]
+  end
 
   root 'users#index'
 
