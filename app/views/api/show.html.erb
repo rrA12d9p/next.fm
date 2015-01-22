@@ -18,19 +18,22 @@
 		
 		SC.get('/tracks', { q: query }, function(tracks) {
 		  _.each(tracks, function(track, i){
-		  	console.log(track);
+		  	// console.log(track);
+
 		  	var id = track["id"]
 		  	var title = track["title"];
-		  	var artwork = track["artwork_url"];
+		  	var artwork_url = track["artwork_url"];
 		  	var user = track["user"];
+
+		  	var artwork = $('<img>').attr('src', artwork_url);
 
 		  	var result = $('<li></li>').attr('id', 'result-' + (i + 1));
 		  	var trackContainer = $('<div></div>').attr('id', id).addClass('trackContainer').appendTo(result);
 
-		  	trackContainer.append($('<button type="button">Play</button>').addClass('play'));
 		  	trackContainer.append($('<p></p>').html(artwork));
 		  	trackContainer.append($('<p></p>').html(title));
 		  	trackContainer.append($('<p></p>').html(user["username"]).attr('id', user["id"]));
+		  	trackContainer.append($('<button type="button">Play</button>').addClass('play paused'));
 
 		  	$('.results-list').append(result);
 		  });
@@ -41,22 +44,29 @@
 		  	
 		  	SC.stream("/tracks/" + id, function(sound){
 		  		if (typeof trackPlaying != 'undefined') { trackPlaying.pause() };
-		  		trackPlaying = sound;
-		  	  sound.play();
-		  	});
 
-		  });
+  				trackPlaying = sound;
 
-		});
+  				sound.play({
+	  		    onload: function() {
+	  		      if (this.readyState == 2) {
+								alert("this song is unstreamable due to some setting or something stupid. (TODO - better error handling)");
+	  		      } else {
+	  		      	console.log("streaming track " + id);
+	  		      }
+	  		    }
+  		    });
+	  		}); // <- SC.stream
+
+		  }); // <- onclick
+
+	  }); // <- SC.get
+
 	});
 </script>
 
 <script type="text/javascript">
 	$(document).ready(function(){
-
-		
-
-		
 
 
 	});
