@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :users, controllers: {registrations: 'users/registrations'}
+  
+  resources :users, only: [:index]
 
-  root new_user_registration_path
+  root 'users#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -17,10 +19,10 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  #   resource :products
 
   # Example resource route with options:
-  #   resources :products do
+  #   resource :products do
   #     member do
   #       get 'short'
   #       post 'toggle'
@@ -31,16 +33,16 @@ Rails.application.routes.draw do
   #     end
   #   end
 
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
+  # Example resource route with sub-resource:
+  #   resource :products do
+  #     resource :comments, :sales
   #     resource :seller
   #   end
 
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
+  # Example resource route with more complex sub-resource:
+  #   resource :products do
+  #     resource :comments
+  #     resource :sales do
   #       get 'recent', on: :collection
   #     end
   #   end
@@ -49,13 +51,13 @@ Rails.application.routes.draw do
   #   concern :toggleable do
   #     post 'toggle'
   #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
+  #   resource :posts, concerns: :toggleable
+  #   resource :photos, concerns: :toggleable
 
   # Example resource route within a namespace:
   #   namespace :admin do
   #     # Directs /admin/products/* to Admin::ProductsController
   #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
+  #     resource :products
   #   end
 end

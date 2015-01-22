@@ -1,6 +1,14 @@
 source 'https://rubygems.org'
 
+ruby '2.1.2'
+
+gem 'normalize-rails'
+
 gem 'devise'
+gem 'faker'
+
+gem 'bootstrap-sass', '~> 3.3.1'
+gem 'autoprefixer-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
@@ -34,6 +42,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
