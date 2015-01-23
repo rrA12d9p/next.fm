@@ -14,7 +14,7 @@
 
 		var searchInput = $("#q");
 		var query = searchInput.val();
-		searchInput.val("");
+		// searchInput.val("");
 		
 		SC.get('/tracks', { q: query }, function(tracks) {
 		  _.each(tracks, function(track, i){
@@ -37,6 +37,9 @@
 		  	trackInfo.append($('<p></p>').html(title));
 		  	trackInfo.append($('<p></p>').html(user["username"]).attr('id', user["id"]));
 		  	trackInfo.append($('<button type="button">Play</button>').addClass('play paused'));
+		  	var playlistDropdown = $('<select></select>').addClass('selectPlaylist').appendTo(trackInfo);
+		  	playlistDropdown.append($('<option selected disabled></option>').html('Select playlist'));
+		  	trackInfo.append($('<button type="button">Add to playlist</button>').addClass('addToPlaylist'));
 
 		  	$('.results-list').append(result);
 		  });
