@@ -17,9 +17,15 @@
 		// searchInput.val("");
 		
 		SC.get('/tracks', { q: query }, function(tracks) {
+			var skippedIndex = 0;
 		  _.each(tracks, function(track, i){
 		  	// console.log(track["streamable"]);
-		  	if (track["policy"] != "ALLOW" || track["streamable"] == false) { return false; }
+		  	
+		  	if (track["policy"] != "ALLOW" || track["streamable"] == false) {
+		  		return false; 
+		  	} else {
+		  		skippedIndex += 1;
+		  	}
 		  	// console.log(track);
 
 		  	var id = track["id"]
@@ -29,7 +35,7 @@
 
 		  	var artwork = $('<img>').attr('src', artwork_url);
 
-		  	var result = $('<li></li>').attr('id', 'result-' + (i + 1));
+		  	var result = $('<li></li>').attr('id', 'result-' + (skippedIndex));
 		  	var trackContainer = $('<div></div>').attr('id', id).addClass('trackContainer').appendTo(result);
 
 		  	trackContainer.append($(artwork));
