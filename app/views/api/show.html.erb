@@ -18,7 +18,7 @@
 		
 		SC.get('/tracks', { q: query }, function(tracks) {
 		  _.each(tracks, function(track, i){
-		  	console.log(track["streamable"]);
+		  	// console.log(track["streamable"]);
 		  	if (track["policy"] != "ALLOW" || track["streamable"] == false) { return false; }
 		  	// console.log(track);
 
@@ -44,12 +44,13 @@
 		  $('.play').on('click', function(){
 		  	var playButton = $(this);
 
-		  	$('.playing').removeClass('.playing').addClass('paused').html('Play');
-
 		  	if (playButton.hasClass('playing')) {
+		  		$('.playing').removeClass('playing').addClass('paused').html('Play');
 		  		trackPlaying.pause();
 		  		return false;
 		  	}
+
+		  	$('.playing').removeClass('playing').addClass('paused').html('Play');
 
 		  	var trackContainer = $(this).closest('.trackContainer');
 		  	var id = trackContainer.attr('id');
