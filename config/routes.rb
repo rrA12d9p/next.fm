@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'playlists/index'
+
+  get 'playlist/index'
+
   get 'profiles/show'
   get 'api/show'
 
@@ -7,6 +11,7 @@ Rails.application.routes.draw do
   
   resources :users, only: [:index] do
     resource :profile, only: [:show]
+    resources :playlists, except: [:new, :edit], defaults: { format: 'json' }
   end
 
   root 'users#index'

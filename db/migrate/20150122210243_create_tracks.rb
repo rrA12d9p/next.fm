@@ -7,7 +7,6 @@ class CreateTracks < ActiveRecord::Migration
       t.string :album_name
       t.string :track_name
       t.string :artwork_url
-      t.string :sc_stream_url
       t.integer :sc_user_id
       t.integer :sc_artist_id
       t.integer :sc_album_id
