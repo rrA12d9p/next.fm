@@ -38,14 +38,10 @@ ActiveRecord::Schema.define(version: 20150122210243) do
 
   create_table "tracks", force: :cascade do |t|
     t.integer "playlist_id"
-    t.string  "artist_name"
-    t.string  "album_name"
-    t.string  "track_name"
+    t.string  "title"
+    t.string  "user_name"
     t.string  "artwork_url"
-    t.string  "sc_stream_url"
     t.integer "sc_user_id"
-    t.integer "sc_artist_id"
-    t.integer "sc_album_id"
     t.integer "sc_track_id"
   end
 

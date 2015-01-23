@@ -83,7 +83,34 @@
 			$('.addToPlaylist').on('click', function(){
 				var trackContainer = $(this).closest('.trackContainer');
 				var selectedPlaylist = $('.selectPlaylist option:selected', trackContainer);
-				console.log(selectedPlaylist.attr('id'));
+				
+				var trackId = trackContainer.attr('id');
+				var playlistId = selectedPlaylist.attr('id');
+
+				var track = _.find(tracks, function(track){
+					return track.id == trackId;
+				});
+
+				track.sc_track_id = track['id'];
+				track.sc_user_id = track['user_id'];
+				track.playlist_id = playlistId;
+
+				delete track['id'];
+				delete track['user_id'];
+
+				$.ajax({
+					type: 'POST',
+					url: '<%=playlist_add_track_path%>',
+					data: {track: track},
+					dataType: 'json',
+					success: function(response) {
+
+					},
+					error: function(){
+
+					}
+				})
+
 			});
 
 		  $('.play').on('click', function(){

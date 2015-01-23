@@ -8,7 +8,6 @@ gem 'figaro'
 gem 'devise'
 gem 'faker'
 
-gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
