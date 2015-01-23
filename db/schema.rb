@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20150122210243) do
   create_table "tracks", force: :cascade do |t|
     t.integer "playlist_id"
     t.string  "title"
-    t.string  "user_name"
+    t.string  "username"
     t.string  "artwork_url"
     t.integer "sc_user_id"
     t.integer "sc_track_id"

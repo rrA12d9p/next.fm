@@ -25,6 +25,6 @@ class PlaylistsController < ApplicationController
 
   private
   def track_params
-    params.require(:track).permit(:sc_track_id, :title, :artwork_url, :sc_user_id, :playlist_id)
+    params.require(:track).permit(:sc_track_id, :title, :artwork_url, :sc_user_id, :playlist_id, :username)
   end
 end

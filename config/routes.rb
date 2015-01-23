@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   
   post 'playlists/add_track' => 'playlists#add_track', as: :playlist_add_track
 
-  root 'users#index'
+  root 'api#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,2 +1,45 @@
-<%= @playlist.inspect %>
-<%= @playlist.tracks.inspect %>
+<h1><%= @playlist.title %></h1>
+
+<table>
+	<thead>
+		<tr>
+			<th class="artwork-header"></th>
+			<th>Title</th>
+			<th>User</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @playlist.tracks.each do |track| %>
+		<tr id='<%=track.sc_track_id%>'>
+			<td><%= image_tag(track.artwork_url) %></td>
+			<td><%= track.title %></td>
+			<td><%= track.username %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>
+
+<script>
+	var trackPlaying;
+
+	$('tr').on('click', function(){
+		var trackId = $(this).attr('id');
+		console.log(trackId);
+		
+  	SC.stream("/tracks/" + trackId, function(sound){
+  		if (typeof trackPlaying != 'undefined') { trackPlaying.pause() };
+
+			sound.play({
+		    onload: function() {
+		      if (this.readyState == 2) {
+						alert("unable to stream this track :(");
+		      } else {
+		      	console.log("streaming track " + trackId);
+		      	trackPlaying = sound;
+		      }
+		    }
+	    });
+		}); // <- SC.stream
+
+	});
+</script>
