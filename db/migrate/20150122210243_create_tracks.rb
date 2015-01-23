@@ -1,6 +1,8 @@
 class CreateTracks < ActiveRecord::Migration
   def change
     create_table :tracks do |t|
+      t.integer :playlist_id
+      
       t.string :artist_name
       t.string :album_name
       t.string :track_name
