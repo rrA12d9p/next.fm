@@ -29,7 +29,6 @@
 	});
 
 	function renderSearchResults(playlists){
-		playlistTitles = _.pluck(playlists, "title");
 
 		$('.results-list').empty();
 
@@ -66,13 +65,19 @@
 		  	trackInfo.append($('<button type="button">Play</button>').addClass('play paused'));
 		  	var playlistDropdown = $('<select></select>').addClass('selectPlaylist').appendTo(trackInfo);
 		  	playlistDropdown.append($('<option selected disabled></option>').html('Select playlist'));
-		  	_.each(playlistTitles, function(playlistTitle){
-		  		playlistDropdown.append($('<option></option>').html(playlistTitle));
+		  	_.each(playlists, function(playlist){
+		  		playlistDropdown.append($('<option></option>').attr('id', playlist.id).html(playlist.title));
 		  	});
 		  	trackInfo.append($('<button type="button">Add to playlist</button>').addClass('addToPlaylist'));
 
 		  	$('.results-list').append(result);
-		  });
+		  }); // <- _.each
+
+			$('.addToPlaylist').on('click', function(){
+				var trackContainer = $(this).closest('.trackContainer');
+				var selectedPlaylist = $('.selectPlaylist option:selected', trackContainer);
+				console.log(selectedPlaylist.attr('id'));
+			});
 
 		  $('.play').on('click', function(){
 		  	var playButton = $(this);
