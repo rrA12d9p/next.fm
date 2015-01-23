@@ -17,3 +17,20 @@ header {
 		}
 	}
 }
+
+body {
+	.results-list {
+		img {
+			width: 100px;
+			height: 100px;
+			border: 1px solid black;
+		}
+		padding: 0;
+	}
+	.results-list li:nth-child(even) {
+		background: #ddd;
+	}
+	.results-list > li {
+		list-style: none;
+	}
+}
