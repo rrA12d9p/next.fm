@@ -1,5 +1,5 @@
 <%= form_tag("/search", method: "get") do %>
-  <%= search_field(:q, '', placeholder: 'Track Name', autofocus: true) %>
+  <%= text_field_tag(:q, '', placeholder: 'Track Name', autofocus: true) %>
   <%= submit_tag("Search") %>
 <% end %>
 
@@ -19,7 +19,7 @@
 		SC.get('/tracks', { q: query }, function(tracks) {
 		  _.each(tracks, function(track, i){
 		  	if (track["policy"] != "ALLOW") { return false; }
-		  	// console.log(track);
+		  	console.log(track);
 
 		  	var id = track["id"]
 		  	var title = track["title"];
