@@ -18,7 +18,8 @@
 		
 		SC.get('/tracks', { q: query }, function(tracks) {
 		  _.each(tracks, function(track, i){
-		  	if (track["policy"] != "ALLOW") { return false; }
+		  	console.log(track["streamable"]);
+		  	if (track["policy"] != "ALLOW" || track["streamable"] == false) { return false; }
 		  	// console.log(track);
 
 		  	var id = track["id"]
@@ -59,7 +60,7 @@
   				sound.play({
 	  		    onload: function() {
 	  		      if (this.readyState == 2) {
-								alert("this song is unstreamable due to some setting or something stupid. (TODO - better error handling)");
+								alert("unable to stream this track :(");
 	  		      } else {
 	  		      	console.log("streaming track " + id);
 	  		      	trackPlaying = sound;
