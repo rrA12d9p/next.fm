@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     resource :profile, only: [:show]
     resources :playlists, except: [:new, :edit], defaults: { format: 'json' }
   end
+  
+  post 'playlists/add_track' => 'playlists#add_track', as: :playlist_add_track
 
   root 'users#index'
 

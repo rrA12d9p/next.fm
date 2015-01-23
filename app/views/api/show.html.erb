@@ -25,7 +25,11 @@
 
 	$('form').on('submit', function(event){
 		event.preventDefault();
-		updateUserPlaylists(<%=current_user.id%>);
+		<% if user_signed_in? %>
+			updateUserPlaylists(<%current_user.id%>);
+		<% else %>
+			renderSearchResults(null);
+		<% end %>
 	});
 
 	function renderSearchResults(playlists){
@@ -42,7 +46,7 @@
 		  	// console.log(track["streamable"]);
 		  	
 		  	if (track["policy"] != "ALLOW" || track["streamable"] == false) {
-		  		return false; 
+		  		return false;
 		  	} else {
 		  		skippedIndex += 1;
 		  	}
@@ -63,12 +67,15 @@
 		  	trackInfo.append($('<p></p>').html(title));
 		  	trackInfo.append($('<p></p>').html(user["username"]).attr('id', user["id"]));
 		  	trackInfo.append($('<button type="button">Play</button>').addClass('play paused'));
-		  	var playlistDropdown = $('<select></select>').addClass('selectPlaylist').appendTo(trackInfo);
-		  	playlistDropdown.append($('<option selected disabled></option>').html('Select playlist'));
-		  	_.each(playlists, function(playlist){
-		  		playlistDropdown.append($('<option></option>').attr('id', playlist.id).html(playlist.title));
-		  	});
-		  	trackInfo.append($('<button type="button">Add to playlist</button>').addClass('addToPlaylist'));
+
+		  	<% if user_signed_in? %>
+			  	var playlistDropdown = $('<select></select>').addClass('selectPlaylist').appendTo(trackInfo);
+			  	playlistDropdown.append($('<option selected disabled></option>').html('Select playlist'));
+			  	_.each(playlists, function(playlist){
+			  		playlistDropdown.append($('<option></option>').attr('id', playlist.id).html(playlist.title));
+			  	});
+			  	trackInfo.append($('<button type="button">Add to playlist</button>').addClass('addToPlaylist'));
+			  <% end %>
 
 		  	$('.results-list').append(result);
 		  }); // <- _.each
