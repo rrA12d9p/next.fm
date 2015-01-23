@@ -1,5 +1,5 @@
 <%= form_tag("/search", method: "get") do %>
-  <%= text_field_tag(:q, '', autofocus: true) %>
+  <%= search_field(:q, '', placeholder: 'Track Name', autofocus: true) %>
   <%= submit_tag("Search") %>
 <% end %>
 
@@ -18,6 +18,7 @@
 		
 		SC.get('/tracks', { q: query }, function(tracks) {
 		  _.each(tracks, function(track, i){
+		  	if (track["policy"] != "ALLOW") { return false; }
 		  	// console.log(track);
 
 		  	var id = track["id"]
@@ -39,13 +40,19 @@
 		  });
 
 		  $('.play').on('click', function(){
+		  	var playButton = $(this);
+
+		  	if (playButton.hasClass('playing')) {
+		  		playButton.removeClass('playing').addClass('paused').html('Play');
+		  		trackPlaying.pause();
+		  		return false;
+		  	}
+
 		  	var trackContainer = $(this).closest('.trackContainer');
 		  	var id = trackContainer.attr('id');
 		  	
 		  	SC.stream("/tracks/" + id, function(sound){
 		  		if (typeof trackPlaying != 'undefined') { trackPlaying.pause() };
-
-  				trackPlaying = sound;
 
   				sound.play({
 	  		    onload: function() {
@@ -53,6 +60,9 @@
 								alert("this song is unstreamable due to some setting or something stupid. (TODO - better error handling)");
 	  		      } else {
 	  		      	console.log("streaming track " + id);
+	  		      	trackPlaying = sound;
+
+	  		      	playButton.removeClass('paused').addClass('playing').html('Pause');
 	  		      }
 	  		    }
   		    });
