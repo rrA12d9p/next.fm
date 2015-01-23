@@ -7,6 +7,11 @@ class PlaylistsController < ApplicationController
   	end
   end
 
+  def show
+    @user = User.find(params[:user_id])
+    @playlist = @user.playlists.find(params[:id])
+  end
+
 	# take a playlist_id and track json object (serialized)
 	# create that track in the db (if it doesn't exist?)
   def add_track
@@ -16,8 +21,6 @@ class PlaylistsController < ApplicationController
     else
       render :json => new_track.errors.full_messages
     end
-
-    # redirect_to '/api/show'
   end
 
   private
