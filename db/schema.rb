@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(version: 20150122210243) do
   enable_extension "plpgsql"
 
   create_table "playlists", force: :cascade do |t|
-    t.integer "track_id"
     t.string  "title"
     t.integer "user_id"
   end
