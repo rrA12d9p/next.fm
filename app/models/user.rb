@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   belongs_to :role
   has_one :profile
   has_many :playlists
-  has_many :songs, through: :playlists
+  has_many :tracks, through: :playlists
 
   accepts_nested_attributes_for :profile
 
