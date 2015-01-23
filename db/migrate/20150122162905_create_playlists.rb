@@ -1,7 +1,6 @@
 class CreatePlaylists < ActiveRecord::Migration
   def change
     create_table :playlists do |t|
-      t.integer :track_id
       t.string :title
       t.integer :user_id
     end
