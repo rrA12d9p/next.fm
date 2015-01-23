@@ -31,10 +31,11 @@
 		  	var result = $('<li></li>').attr('id', 'result-' + (i + 1));
 		  	var trackContainer = $('<div></div>').attr('id', id).addClass('trackContainer').appendTo(result);
 
-		  	trackContainer.append($('<p></p>').html(artwork));
-		  	trackContainer.append($('<p></p>').html(title));
-		  	trackContainer.append($('<p></p>').html(user["username"]).attr('id', user["id"]));
-		  	trackContainer.append($('<button type="button">Play</button>').addClass('play paused'));
+		  	trackContainer.append($(artwork));
+		  	trackInfo = $('<div></div>').addClass('track-info').appendTo(trackContainer);
+		  	trackInfo.append($('<p></p>').html(title));
+		  	trackInfo.append($('<p></p>').html(user["username"]).attr('id', user["id"]));
+		  	trackInfo.append($('<button type="button">Play</button>').addClass('play paused'));
 
 		  	$('.results-list').append(result);
 		  });
